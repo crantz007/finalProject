@@ -43,6 +43,11 @@ public class huntingGui extends JFrame {
         list.add(hunterDataBase.ANIMAL_SPECIE_HERBIVOROUS);
         animalSpeciesSpinner.setModel(new SpinnerListModel(list));
         setVisible(true);
+        ArrayList<String>list2=new ArrayList<>();
+        list2.add(hunterDataBase.FEMALE_GENDER);
+        list2.add(hunterDataBase.MALE_GENDER);
+        genderSpinner.setModel(new SpinnerListModel(list2));
+        setVisible(true);
 
         //event handlers for add , delete and quit button
         addNewHunterButton.addActionListener(new ActionListener() {

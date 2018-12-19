@@ -6,24 +6,26 @@ import java.util.Vector;
 public class hunterDataBase {
     private static final String DB_CONNECTION_URL="jdbc:sqlite:hunting.sqlite";
 
-    private static final int ID_COLUMN=0;
-    private static final String FIRST_NAME="first name";
-    private static final  String LAST_NAME="last name";
+    private static final String ID_COLUMN="id";
+    private static final String FIRST_NAME="firstName";
+    private static final  String LAST_NAME="lastName";
     private static final  String SPECIES_COLUMN="species";
-    private static final  String ANIMAL_NAME_COLUMN="animal name";
-    private static final String ANIMAL_GENDER_COLUMN="animal gender";
+    private static final  String ANIMAL_NAME_COLUMN="animalName";
+    private static final String ANIMAL_GENDER_COLUMN="animalGender";
 
 
     final static String ANIMAL_SPECIE_BIRDS="Birds";
     final static String ANIMAL_SPECIE_RODENTS="Rodents";
     final static String ANIMAL_SPECIE_HERBIVOROUS="Herbivorous";
+    final static String MALE_GENDER="male";
+    final static String FEMALE_GENDER="female";
 
     //SQL statements
     private static final String CREATE_HUNTING_TABLE="CREATE TABLE IF NOT EXISTS hunting(id INTEGER PRIMARY KEY, firstName TEXT, lastName TEXT, species TEXT,animalName TEXT,animalGender TEXT)";
-    private String GET_ALL_HUNTERS= "SELECT * FROM hunting ";
+    private static final String GET_ALL_HUNTERS= "SELECT * FROM hunting";
     private static final String EDIT_SPECIES= "UPDATE hunting SET species = ? WHERE ID = ?";
     private static final String DELETE_HUNTER ="DELETE FROM hunting WHERE ID = ?";
-    private static final String ADD_HUNTER = " INSERT INTO hunting (first name , last name, species, animal name, animal gender) VALUES (?,?,?,?)";
+    private static final String ADD_HUNTER = " INSERT INTO hunting (firstName , lastName, species, animalName, animalGender) VALUES (?,?,?,?,?)";
 
     hunterDataBase(){
         createTable();
@@ -44,11 +46,11 @@ public class hunterDataBase {
     Vector getColumNames(){
         Vector colNames = new Vector();
         colNames.add("id");
-        colNames.add("First Names");
-        colNames.add("Last Name");
-        colNames.add("Species");
-        colNames.add("Animal name");
-        colNames.add("Gender");
+        colNames.add("firstName");
+        colNames.add("lastName");
+        colNames.add("species");
+        colNames.add("animalName");
+        colNames.add("animalGender");
 
         return colNames;
 
@@ -102,12 +104,12 @@ public class hunterDataBase {
         try(Connection connection = DriverManager.getConnection(DB_CONNECTION_URL);
             PreparedStatement preparedStatement= connection.prepareStatement(ADD_HUNTER)){
 
-                preparedStatement.setInt(1,iD);
-                preparedStatement.setString(2,firstName);
-                preparedStatement.setString(3,lastName);
-                preparedStatement.setString(4,species);
-                preparedStatement.setString(5,animalName);
-                preparedStatement.setString(6,gender);
+
+                preparedStatement.setString(1,firstName);
+                preparedStatement.setString(2,lastName);
+                preparedStatement.setString(3,species);
+                preparedStatement.setString(4,animalName);
+                preparedStatement.setString(5,gender);
 
                 preparedStatement.executeUpdate();
         }catch (SQLException e){
